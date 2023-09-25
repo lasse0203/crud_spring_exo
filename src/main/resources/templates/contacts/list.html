@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> List of contacts </title>
+    <span th:replace="~{home :: bootstrapImports}"></span>
+</head>
+<body>
+<header th:insert="~{home :: nav}">
+
+</header>
+<main class="container">
+    <h1 class="fw-light">Contact list</h1>
+    <hr>
+    <table th:if="${!contacts.isEmpty()}" class="rounded overflow-hidden table table-dark table-striped text-center align-middle">
+        <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Number Phone</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="c : ${contacts}">
+            <td th:text="${c.firstName}"></td>
+            <td th:text="${c.lastName}"></td>
+            <td th:text="${c.phoneNumber}"></td>
+            <td>
+                <a th:href="@{/contact/{contactId}(contactId=${c.id})}" class="btn btn-outline-info"><i class="bi bi-eye"></i> Details</a>
+                <a th:href="@{contact/delete/{contactId}(contactId=${c.id})}" class="btn btn-outline-danger"><i class="bi bi-trash"></i> Delete</a>
+                <a th:href="@{contact/edit/{contactId}(contactId=${c.id})}" class="btn btn-outline-warning"><i class="bi bi-pen"></i> Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p th:if="${contacts.isEmpty()}">please add a contact !</p>
+    <hr>
+    <div class="text-end">
+        <a th:href="@{/contact/add}" class="btn btn-success"><i class="bi bi-plus-circle"></i> Add a Contact</a>
+    </div>
+</main>
+</body>
+</html>>
